@@ -1,0 +1,37 @@
+.container {
+    text-align: center;
+    padding: 50px;
+}
+
+header h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+button {
+    background-color: #61dafb;
+    color: white;
+    margin: 10px 0;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block; /* Makes the button a block element */
+    width: 300px; /* Matches the input width */
+    margin: 10px auto; /* Centers the button */
+}
+
+button:hover {
+    background-color: #21a1f1;
+}
+
+input {
+    margin: 20px auto; /* Centers the input */
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    display: block; /* Makes the input a block element */
+}
