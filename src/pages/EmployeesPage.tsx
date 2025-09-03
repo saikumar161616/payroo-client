@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/EmployeesPage.css';
 import { Employee } from './../types/types';
 import { getEmployees, addEmployee, updateEmployee } from '../api/employees';
@@ -72,7 +72,6 @@ const EmployeesPage: React.FC = () => {
     //     }
     // };
 
-
     const [formData, setFormData] = useState<Partial<Employee>>({});
     const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -137,116 +136,302 @@ const EmployeesPage: React.FC = () => {
     if (isLoading) return <p>Loading employees...</p>;
     if (error) return <p className="error">{(error instanceof Error ? error.message : String(error))}</p>;
 
+    // return (
+    //     <div className="employees-container">
+    //         <h1>Employees</h1>
+
+    //         <form className='employee-form' onSubmit={handleFormSubmit}>
+
+    //             <input
+    //                 type="text"
+    //                 name="firstName"
+    //                 placeholder="First Name"
+    //                 value={formData.firstName || ''}
+    //                 required
+    //                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+    //             />
+    //             <input
+    //                 type="text"
+    //                 name="lastName"
+    //                 placeholder="Last Name"
+    //                 value={formData.lastName || ''}
+    //                 required
+    //                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+    //             />
+    //             <input
+    //                 type="email"
+    //                 name="email"
+    //                 placeholder="Email"
+    //                 value={formData.email || ''}
+    //                 required
+    //                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+    //             />
+    //             <select
+    //                 name="type"
+    //                 value={formData.type || ''}
+    //                 onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+    //                 required
+    //             >
+    //                 <option value="" disabled>
+    //                     Select Type
+    //                 </option>
+    //                 <option value="HOURLY">Hourly</option>
+    //             </select>
+
+    //             <input
+    //                 type="number"
+    //                 name="baseHourlyRate"
+    //                 placeholder="Base Hourly Rate"
+    //                 required
+    //                 value={formData.baseHourlyRate || ''}
+    //                 onChange={(e) => setFormData({ ...formData, baseHourlyRate: parseFloat(e.target.value) })}
+    //             />
+    //             <input
+    //                 type="number"
+    //                 name="superRate"
+    //                 placeholder="Super Rate (%)"
+    //                 required
+    //                 value={formData.superRate || ''}
+    //                 onChange={(e) => setFormData({ ...formData, superRate: parseFloat(e.target.value) })}
+    //             />
+    //             <input
+    //                 type="text"
+    //                 name="bankBsb"
+    //                 placeholder="Bank BSB"
+    //                 required
+    //                 value={formData.bank?.bsb || ''}
+    //                 onChange={(e) =>
+    //                     setFormData({
+    //                         ...formData,
+    //                         bank: {
+    //                             bsb: e.target.value,
+    //                             account: formData.bank?.account || ''
+    //                         }
+    //                     })
+    //                 }
+    //             />
+    //             <input
+    //                 type="text"
+    //                 name="bankAccount"
+    //                 placeholder="Bank Account"
+    //                 required
+    //                 value={formData.bank?.account || ''}
+    //                 onChange={(e) =>
+    //                     setFormData({
+    //                         ...formData,
+    //                         bank: {
+    //                             bsb: formData.bank?.bsb || '',
+    //                             account: e.target.value
+    //                         }
+    //                     })
+    //                 }
+    //             />
+
+    //             <select
+    //                 name="status"
+    //                 value={formData.status || ''}
+    //                 onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+    //             >
+    //                 <option value="" disabled>
+    //                     Select Status
+    //                 </option>
+    //                 <option value="ACTIVE">ACTIVE</option>
+    //                 <option value="INACTIVE">INACTIVE</option>
+    //             </select>
+
+    //             <button type="submit">{isEditing ? 'Update Employee' : 'Add Employee'}</button>
+    //             <button type="button" onClick={() => { setIsEditing(false); setFormData({}); }}>Cancel</button>
+    //         </form>
+
+    //         <div className="table-container">
+    //             <table className="employees-table">
+    //                 <thead>
+    //                     <tr>
+    //                         <th>First Name</th>
+    //                         <th>Last Name</th>
+    //                         <th>Email</th>
+    //                         <th>Type</th>
+    //                         <th>Base Hourly Rate</th>
+    //                         <th>Super Rate</th>
+    //                         <th>Bank BSB</th>
+    //                         <th>Bank Account</th>
+    //                         <th>Actions</th>
+    //                     </tr>
+    //                 </thead>
+    //                 <tbody>
+    //                     {employees.length === 0 ? (
+    //                         <tr>
+    //                             <td colSpan={9} style={{ textAlign: 'center' }}>No employees found.</td>
+    //                         </tr>
+    //                     ) : (employees.map((emp) => (
+    //                         <tr key={emp.id}>
+    //                             <td>{emp.firstName}</td>
+    //                             <td>{emp.lastName}</td>
+    //                             <td>{emp.email}</td>
+    //                             <td>{emp.type}</td>
+    //                             <td>{emp.baseHourlyRate}</td>
+    //                             <td>{emp.superRate}</td>
+    //                             <td>{emp.bank.bsb}</td>
+    //                             <td>{emp.bank.account}</td>
+    //                             <td> <button onClick={() => handleEdit(emp)} >Edit</button> </td>
+    //                         </tr>
+    //                     ))
+    //                     )}
+    //                 </tbody>
+    //             </table>
+    //         </div>
+    //     </div>
+    // );
+
     return (
-        <div className="employees-container">
-            <h1>Employees</h1>
+        <div className="container mt-4">
+            <h1 className="mb-4">Employees</h1>
 
-            <form className='employee-form' onSubmit={handleFormSubmit}>
+            {/* Error and loading display */}
+            {isLoading && (
+                <div className="alert alert-info" role="alert">
+                    Loading employees...
+                </div>
+            )}
+            {error && (
+                <div className="alert alert-danger" role="alert">
+                    {(typeof error === 'object' && error !== null && 'message' in error ? (error as Error).message : String(error))}
+                </div>
+            )}
 
-                <input
-                    type="text"
-                    name="firstName"
-                    placeholder="First Name"
-                    value={formData.firstName || ''}
-                    required
-                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                />
-                <input
-                    type="text"
-                    name="lastName"
-                    placeholder="Last Name"
-                    value={formData.lastName || ''}
-                    required
-                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email || ''}
-                    required
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                />
-                <select
-                    name="type"
-                    value={formData.type || ''}
-                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                    required
-                >
-                    <option value="" disabled>
-                        Select Type
-                    </option>
-                    <option value="HOURLY">Hourly</option>
-                </select>
-
-                <input
-                    type="number"
-                    name="baseHourlyRate"
-                    placeholder="Base Hourly Rate"
-                    required
-                    value={formData.baseHourlyRate || ''}
-                    onChange={(e) => setFormData({ ...formData, baseHourlyRate: parseFloat(e.target.value) })}
-                />
-                <input
-                    type="number"
-                    name="superRate"
-                    placeholder="Super Rate (%)"
-                    required
-                    value={formData.superRate || ''}
-                    onChange={(e) => setFormData({ ...formData, superRate: parseFloat(e.target.value) })}
-                />
-                <input
-                    type="text"
-                    name="bankBsb"
-                    placeholder="Bank BSB"
-                    required
-                    value={formData.bank?.bsb || ''}
-                    onChange={(e) =>
-                        setFormData({
-                            ...formData,
-                            bank: {
-                                bsb: e.target.value,
-                                account: formData.bank?.account || ''
-                            }
-                        })
-                    }
-                />
-                <input
-                    type="text"
-                    name="bankAccount"
-                    placeholder="Bank Account"
-                    required
-                    value={formData.bank?.account || ''}
-                    onChange={(e) =>
-                        setFormData({
-                            ...formData,
-                            bank: {
-                                bsb: formData.bank?.bsb || '',
-                                account: e.target.value
-                            }
-                        })
-                    }
-                />
-
-                <select
-                    name="status"
-                    value={formData.status || ''}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                >
-                    <option value="" disabled>
-                        Select Status
-                    </option>
-                    <option value="ACTIVE">ACTIVE</option>
-                    <option value="INACTIVE">INACTIVE</option>
-                </select>
-
-                <button type="submit">{isEditing ? 'Update Employee' : 'Add Employee'}</button>
-                <button type="button" onClick={() => { setIsEditing(false); setFormData({}); }}>Cancel</button>
+            {/* Employee Form */}
+            <form className="row g-3 mb-4 d-flex align-items-center" onSubmit={handleFormSubmit}>
+                <div className="col-md-3 align-items-center">
+                    <input
+                        type="text"
+                        name="firstName"
+                        className="form-control"
+                        placeholder="First Name"
+                        value={formData.firstName || ''}
+                        required
+                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                    />
+                </div>
+                <div className="col-md-3">
+                    <input
+                        type="text"
+                        name="lastName"
+                        className="form-control"
+                        placeholder="Last Name"
+                        value={formData.lastName || ''}
+                        required
+                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                    />
+                </div>
+                <div className="col-md-3">
+                    <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        placeholder="Email"
+                        value={formData.email || ''}
+                        required
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                </div>
+                <div className="col-md-3">
+                    <select
+                        name="type"
+                        className="form-select"
+                        value={formData.type || ''}
+                        onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                        required
+                    >
+                        <option value="" disabled>
+                            Select Type
+                        </option>
+                        <option value="HOURLY">Hourly</option>
+                    </select>
+                </div>
+                <div className="col-md-2">
+                    <input
+                        type="number"
+                        name="baseHourlyRate"
+                        className="form-control"
+                        placeholder="Base Hourly Rate"
+                        required
+                        value={formData.baseHourlyRate || ''}
+                        onChange={(e) => setFormData({ ...formData, baseHourlyRate: parseFloat(e.target.value) })}
+                    />
+                </div>
+                <div className="col-md-2">
+                    <input
+                        type="number"
+                        name="superRate"
+                        className="form-control"
+                        placeholder="Super Rate (%)"
+                        required
+                        value={formData.superRate || ''}
+                        onChange={(e) => setFormData({ ...formData, superRate: parseFloat(e.target.value) })}
+                    />
+                </div>
+                <div className="col-md-2">
+                    <input
+                        type="text"
+                        name="bankBsb"
+                        className="form-control"
+                        placeholder="Bank BSB"
+                        required
+                        value={formData.bank?.bsb || ''}
+                        onChange={(e) =>
+                            setFormData({
+                                ...formData,
+                                bank: {
+                                    bsb: e.target.value,
+                                    account: formData.bank?.account || ''
+                                }
+                            })
+                        }
+                    />
+                </div>
+                <div className="col-md-2">
+                    <input
+                        type="text"
+                        name="bankAccount"
+                        className="form-control"
+                        placeholder="Bank Account"
+                        required
+                        value={formData.bank?.account || ''}
+                        onChange={(e) =>
+                            setFormData({
+                                ...formData,
+                                bank: {
+                                    bsb: formData.bank?.bsb || '',
+                                    account: e.target.value
+                                }
+                            })
+                        }
+                    />
+                </div>
+                <div className="col-md-2">
+                    <select
+                        name="status"
+                        className="form-select"
+                        value={formData.status || ''}
+                        onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                    >
+                        <option value="" disabled>
+                            Select Status
+                        </option>
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="INACTIVE">INACTIVE</option>
+                    </select>
+                </div>
+                <div className="col-md-2 d-flex gap-2 align-items-center">
+                    <button type="submit" className="btn btn-success">{isEditing ? 'Update' : 'Add'}</button>
+                    <button type="button" className="btn btn-secondary" onClick={() => { setIsEditing(false); setFormData({}); }}>Cancel</button>
+                </div>
             </form>
 
-            <div className="table-container">
-                <table className="employees-table">
-                    <thead>
+            {/* Employees Table */}
+            {/* <div className="table-responsive">
+                <table className="table table-bordered align-middle">
+                    <thead className="table-light">
                         <tr>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -262,7 +447,7 @@ const EmployeesPage: React.FC = () => {
                     <tbody>
                         {employees.length === 0 ? (
                             <tr>
-                                <td colSpan={9} style={{ textAlign: 'center' }}>No employees found.</td>
+                                <td colSpan={9} className="text-center">No employees found.</td>
                             </tr>
                         ) : (employees.map((emp) => (
                             <tr key={emp.id}>
@@ -274,7 +459,50 @@ const EmployeesPage: React.FC = () => {
                                 <td>{emp.superRate}</td>
                                 <td>{emp.bank.bsb}</td>
                                 <td>{emp.bank.account}</td>
-                                <td> <button onClick={() => handleEdit(emp)} >Edit</button> </td>
+                                <td>
+                                    <button className="btn btn-primary btn-sm" onClick={() => handleEdit(emp)}>Edit</button>
+                                </td>
+                            </tr>
+                        ))
+                        )}
+                    </tbody>
+                </table>
+            </div> */}
+
+            <div className="table-responsive overflow-auto">
+                <table className="table table-bordered align-middle">
+                    <thead className="table-light">
+                        <tr>
+                            <th className="text-nowrap">First Name</th>
+                            <th className="text-nowrap">Last Name</th>
+                            <th className="text-nowrap">Email</th>
+                            <th className="text-nowrap">Type</th>
+                            <th className="text-nowrap">Base Hourly Rate</th>
+                            <th className="text-nowrap">Super Rate</th>
+                            <th className="text-nowrap">Bank BSB</th>
+                            <th className="text-nowrap">Bank Account</th>
+                            <th className="text-nowrap">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {employees.length === 0 ? (
+                            <tr>
+                                <td colSpan={9} className="text-center text-nowrap">No employees found.</td>
+                            </tr>
+                        ) : (employees.map((emp) => (
+                            <tr key={emp.id}>
+                                <td className="text-nowrap">{emp.firstName}</td>
+                                <td className="text-nowrap">{emp.lastName}</td>
+                                <td className="text-nowrap">{emp.email}</td>
+                                <td className="text-nowrap">{emp.type}</td>
+                                <td className="text-nowrap">{emp.baseHourlyRate}</td>
+                                <td className="text-nowrap">{emp.superRate}</td>
+                                <td className="text-nowrap">{emp.bank.bsb}</td>
+                                <td className="text-nowrap">{emp.bank.account}</td>
+                                <td className="text-nowrap">
+                                    <button className="btn btn-primary btn-sm px-2"
+                                        onClick={() => handleEdit(emp)}>Edit</button>
+                                </td>
                             </tr>
                         ))
                         )}
