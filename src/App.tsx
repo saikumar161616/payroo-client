@@ -5,6 +5,7 @@ import './App.css';
 import LandingPage from './pages/LandingPage';
 import EmployeesPage from './pages/EmployeesPage';
 import TimesheetsPage from './pages/TimesheetsPage';
+import PayrunPage from './pages/PayrunPage';
 
 const App: React.FC = () => {
 
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/employees" element={<EmployeesPage />} />
         <Route path="/timesheets" element={<TimesheetsPage />} />
+        <Route path="/payruns" element={<PayrunPage />} />
       </Routes>
     </Router>
   )
