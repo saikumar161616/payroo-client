@@ -1,4 +1,4 @@
-/* Container Styling */
+/* Container Styling
 .employees-container {
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -13,14 +13,12 @@ h1 {
   font-size: 2rem;
 }
 
-/* Table Container for Responsiveness */
 .table-container {
-  overflow-x: auto; /* Enable horizontal scrolling for small screens */
+  overflow-x: auto; 
   margin: 0 auto;
   max-width: 100%;
 }
 
-/* Table Styling */
 .employees-table {
   width: 100%;
   border-collapse: collapse;
@@ -59,12 +57,10 @@ h1 {
   font-size: 0.9rem;
 }
 
-/* Add some spacing for the last row */
 .employees-table tr:last-child td {
   border-bottom: 2px solid #ddd;
 }
 
-/* Form Styling */
 .employee-form {
   margin-bottom: 20px;
   display: flex;
@@ -110,7 +106,6 @@ h1 {
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .employees-table th,
   .employees-table td {
@@ -121,4 +116,4 @@ h1 {
   h1 {
     font-size: 1.5rem;
   }
-}
+} */

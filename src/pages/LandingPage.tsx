@@ -35,7 +35,7 @@ const LandingPage: React.FC = () => {
     return (
         <div className="container">
             <header>
-                <h1>Payroo Mini Payrun</h1>
+                <h1>Welcome to Payroo Mini Payrun</h1>
             </header>
             <main>
                 <input

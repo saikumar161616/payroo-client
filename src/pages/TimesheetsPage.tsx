@@ -241,213 +241,8 @@ const TimesheetsPage: React.FC = () => {
         }
     };
 
-    // return (
-    //     <div className="timesheet-container">
-    //         <h1 className="timesheet-title">Timesheet Entry</h1>
-
-    //         {/* Employee + Date Range Selector */}
-    //         <form className="form-row" aria-label="Timesheet Selector">
-    //             <div className="form-group">
-    //                 <label htmlFor="employee-select">Employee</label>
-    //                 <select
-    //                     id="employee-select"
-    //                     value={selectedEmployee}
-    //                     onChange={e => {
-    //                         setSelectedEmployee(e.target.value);
-    //                         setTimesheetLoaded(false);
-    //                     }}
-    //                     required
-    //                     aria-required="true"
-    //                 >
-    //                     <option value="">Select employee...</option>
-    //                     {employees.map(emp => (
-    //                         <option key={emp.id} value={emp.id}>
-    //                             {emp.firstName} {emp.lastName}
-    //                         </option>
-    //                     ))}
-    //                 </select>
-    //             </div>
-    //             <div className="form-group">
-    //                 <label htmlFor="week-start-picker">Period Start</label>
-    //                 <input
-    //                     id="week-start-picker"
-    //                     type="date"
-    //                     value={selectedWeekStart}
-    //                     onChange={handleStartChange}
-    //                     required
-    //                     aria-required="true"
-    //                 />
-    //             </div>
-    //             <div className="form-group">
-    //                 <label htmlFor="week-end-picker">Period End</label>
-    //                 <input
-    //                     id="week-end-picker"
-    //                     type="date"
-    //                     value={selectedWeekEnd}
-    //                     min={selectedWeekStart}
-    //                     onChange={handleEndChange}
-    //                     required
-    //                     aria-required="true"
-    //                 />
-    //             </div>
-    //         </form>
-
-    //         {/* Load Timesheet Button */}
-    //         <button
-    //             className="btn-primary"
-    //             type="button"
-    //             onClick={handleLoadTimesheet}
-    //             disabled={
-    //                 !selectedEmployee ||
-    //                 !selectedWeekStart ||
-    //                 !selectedWeekEnd ||
-    //                 selectedWeekEnd < selectedWeekStart ||
-    //                 !isSevenDayRange(selectedWeekStart, selectedWeekEnd) ||
-    //                 loadTimesheetMutation.isPending
-    //             }
-    //             style={{ marginBottom: '1rem' }}
-    //         >
-    //             {loadTimesheetMutation.isPending ? 'Loading...' : 'Load Timesheet'}
-    //         </button>
-
-    //         {/* Validation message for date range */}
-    //         {selectedWeekStart && selectedWeekEnd && selectedWeekEnd >= selectedWeekStart && !isSevenDayRange(selectedWeekStart, selectedWeekEnd) && (
-    //             <div className="error-message">
-    //                 Date range must be exactly 7 days (e.g., Monday–Sunday or any 7 consecutive days).
-    //             </div>
-    //         )}
-
-    //         {/* Show form validation errors */}
-    //         {formErrors.length > 0 && (
-    //             <div className="error-message">
-    //                 <ul>
-    //                     {formErrors.map((err, idx) => (
-    //                         <li key={idx}>{err}</li>
-    //                     ))}
-    //                 </ul>
-    //             </div>
-    //         )}
-
-    //         {/* Timesheet Table */}
-    //         {timesheetLoaded && (
-    //             <div className="table-wrapper">
-    //                 <table className="timesheet-table">
-    //                     <thead>
-    //                         <tr>
-    //                             <th scope="col">Date</th>
-    //                             <th scope="col">Start</th>
-    //                             <th scope="col">End</th>
-    //                             <th scope="col">Break (mins)</th>
-    //                             {/* <th scope="col">Allowance ($)</th> */}
-    //                         </tr>
-    //                     </thead>
-    //                     <tbody>
-    //                         {timesheetEntries.map((entry, idx) => (
-    //                             <tr key={entry.date}>
-    //                                 <td>
-    //                                     <span aria-label={`Date ${entry.date}`}>
-    //                                         {entry.date}
-    //                                     </span>
-    //                                 </td>
-    //                                 <td>
-    //                                     <input
-    //                                         type="time"
-    //                                         value={entry.startTime}
-    //                                         onChange={e => {
-    //                                             const newStart = e.target.value;
-    //                                             if (entry.endTime && newStart >= entry.endTime) {
-    //                                                 alert('Start time must be before end time');
-    //                                                 return;
-    //                                             }
-    //                                             handleEntryChange(idx, 'startTime', newStart);
-    //                                         }}
-    //                                         aria-label={`Start time for ${entry.date}`}
-    //                                         required
-    //                                     />
-    //                                 </td>
-    //                                 <td>
-    //                                     <input
-    //                                         type="time"
-    //                                         value={entry.endTime}
-    //                                         onChange={e => {
-    //                                             const newEnd = e.target.value;
-    //                                             if (entry.startTime && newEnd <= entry.startTime) {
-    //                                                 alert('End time must be after start time');
-    //                                                 return;
-    //                                             }
-    //                                             handleEntryChange(idx, 'endTime', newEnd);
-    //                                         }}
-    //                                         aria-label={`End time for ${entry.date}`}
-    //                                         required
-    //                                     />
-    //                                 </td>
-    //                                 <td>
-    //                                     <input
-    //                                         type="number"
-    //                                         min={0}
-    //                                         value={entry.breakMins}
-    //                                         onChange={e =>
-    //                                             handleEntryChange(idx, 'breakMins', Number(e.target.value))
-    //                                         }
-    //                                         aria-label={`Break minutes for ${entry.date}`}
-    //                                     />
-    //                                 </td>
-    //                                 {/* <td>
-    //                                     <input
-    //                                         type="number"
-    //                                         min={0}
-    //                                         step={0.01}
-    //                                         value={entry.allowance}
-    //                                         onChange={e =>
-    //                                             handleEntryChange(idx, 'allowance', Number(e.target.value))
-    //                                         }
-    //                                         aria-label={`Allowance for ${entry.date}`}
-    //                                     />
-    //                                 </td> */}
-    //                             </tr>
-    //                         ))}
-    //                     </tbody>
-    //                 </table>
-
-    //                 <label htmlFor="allowances-input">Allowances ($)</label>
-    //                 <input
-    //                     id="allowances-input"
-    //                     type="number"
-    //                     min={0}
-    //                     step={0.01}
-    //                     value={allowances}
-    //                     onChange={e => setAllowances(Number(e.target.value))}
-    //                     placeholder="Total Allowances for the week"
-    //                     aria-label="Allowances for the week"
-    //                 />
-
-    //             </div>
-    //         )}
-
-    //         {/* Actions */}
-    //         <div className="action-buttons">
-    //             <button
-    //                 className="btn-primary"
-    //                 disabled={
-    //                     !selectedEmployee ||
-    //                     !selectedWeekStart ||
-    //                     !selectedWeekEnd ||
-    //                     selectedWeekEnd < selectedWeekStart ||
-    //                     !isSevenDayRange(selectedWeekStart, selectedWeekEnd) ||
-    //                     !timesheetLoaded
-    //                 }
-    //                 onClick={handleSave}
-    //                 type="button"
-    //             >
-    //                 {timesheetId ? 'Update Timesheet': 'Save Timesheet'}
-    //             </button>
-    //             <button className="btn-secondary" type="button">Cancel</button>
-    //         </div>
-    //     </div>
-    // );
-
     return (
-        <div className="container mt-4">
+        <div className="container-fluid" style={{ padding: '15px', height: '100%', width: '100%' }}>
             <h2 className="mb-4">Timesheet Entry</h2>
 
             {/* Error display */}
@@ -469,7 +264,8 @@ const TimesheetsPage: React.FC = () => {
             )}
 
             {/* Employee and Date Range Form */}
-            <form className="row g-3 mb-3 justify-content-center align-items-center">
+
+            <form className="row g-3 mb-3 align-items-center">
                 <div className="col-md-3">
                     <label htmlFor="employee-select" className="form-label">Employee</label>
                     <select
@@ -513,127 +309,24 @@ const TimesheetsPage: React.FC = () => {
                         required
                     />
                 </div>
-            </form>
-
-            {/* Load Timesheet Button */}
-            <button
-                className="btn btn-primary mb-3"
-                type="button"
-                onClick={handleLoadTimesheet}
-                disabled={
-                    !selectedEmployee ||
-                    !selectedWeekStart ||
-                    !selectedWeekEnd ||
-                    selectedWeekEnd < selectedWeekStart ||
-                    !isSevenDayRange(selectedWeekStart, selectedWeekEnd) ||
-                    loadTimesheetMutation.isPending
-                }
-            >
-                {loadTimesheetMutation.isPending ? 'Loading...' : 'Load Timesheet'}
-            </button>
-
-            {/* Timesheet Table */}
-            {/* {timesheetLoaded && (
-                <div className="table-responsive mb-3">
-                    <table className="table table-bordered align-middle">
-                        <thead className="table-light">
-                            <tr>
-                                <th>Date</th>
-                                <th>Start</th>
-                                <th>End</th>
-                                <th>Break (mins)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {timesheetEntries.map((entry, idx) => (
-                                <tr key={entry.date}>
-                                    <td>{entry.date}</td>
-                                    <td>
-                                        <input
-                                            type="time"
-                                            className="form-control"
-                                            value={entry.startTime}
-                                            onChange={e => {
-                                                const newStart = e.target.value;
-                                                if (entry.endTime && newStart >= entry.endTime) {
-                                                    alert('Start time must be before end time');
-                                                    return;
-                                                }
-                                                handleEntryChange(idx, 'startTime', newStart);
-                                            }}
-                                            required
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="time"
-                                            className="form-control"
-                                            value={entry.endTime}
-                                            onChange={e => {
-                                                const newEnd = e.target.value;
-                                                if (entry.startTime && newEnd <= entry.startTime) {
-                                                    alert('End time must be after start time');
-                                                    return;
-                                                }
-                                                handleEntryChange(idx, 'endTime', newEnd);
-                                            }}
-                                            required
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            min={0}
-                                            value={entry.breakMins}
-                                            onChange={e =>
-                                                handleEntryChange(idx, 'breakMins', Number(e.target.value))
-                                            }
-                                        />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <div className="mb-3">
-                        <label htmlFor="allowances-input" className="form-label">Allowances ($)</label>
-                        <input
-                            id="allowances-input"
-                            className="form-control"
-                            type="number"
-                            min={0}
-                            step={0.01}
-                            value={allowances}
-                            onChange={e => setAllowances(Number(e.target.value))}
-                            placeholder="Total Allowances for the week"
-                        />
-                    </div>
+                <div className='col-md-3'>
+                    <button
+                        className="btn btn-primary"
+                        type="button"
+                        onClick={handleLoadTimesheet}
+                        disabled={
+                            !selectedEmployee ||
+                            !selectedWeekStart ||
+                            !selectedWeekEnd ||
+                            selectedWeekEnd < selectedWeekStart ||
+                            !isSevenDayRange(selectedWeekStart, selectedWeekEnd) ||
+                            loadTimesheetMutation.isPending
+                        }
+                    >
+                        {loadTimesheetMutation.isPending ? 'Loading...' : 'Load Timesheet'}
+                    </button>
                 </div>
-
-                
-            )}
-
-            {/* Actions */}
-            {/* <div className="d-flex gap-2">
-                <button
-                    className="btn btn-success"
-                    disabled={
-                        !selectedEmployee ||
-                        !selectedWeekStart ||
-                        !selectedWeekEnd ||
-                        selectedWeekEnd < selectedWeekStart ||
-                        !isSevenDayRange(selectedWeekStart, selectedWeekEnd) ||
-                        !timesheetLoaded
-                    }
-                    onClick={handleSave}
-                    type="button"
-                >
-                    {timesheetId ? 'Update Timesheet' : 'Save Timesheet'}
-                </button>
-                <button className="btn btn-secondary" type="button" onClick={() => window.location.reload()}>Cancel</button>
-            </div> */}
-
-
+            </form>
 
             {timesheetLoaded && (
                 <>

@@ -1,44 +1,37 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import LandingPage from './pages/LandingPage';
 import EmployeesPage from './pages/EmployeesPage';
 import TimesheetsPage from './pages/TimesheetsPage';
 import PayrunPage from './pages/PayrunPage';
+import Navbar from './components/Navbar';
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
+
+  const location = useLocation();
+  console.log("Current location:", location.pathname);
+  const showNavbar = location.pathname !== '/';
 
   return (
-    <Router>
+    <>
+      {showNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/employees" element={<EmployeesPage />} />
         <Route path="/timesheets" element={<TimesheetsPage />} />
         <Route path="/payruns" element={<PayrunPage />} />
       </Routes>
-    </Router>
-  )
+    </>
+  );
+}
 
-  // return (
-  //   <div className="App">
-  //     {/* <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.tsx</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header> */}
-  //     <LandingPage />
-  //   </div>
-  // );
+const App: React.FC = () => {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
 };
 
 export default App;

@@ -62,7 +62,7 @@ const PayrunPage: React.FC = () => {
 
     return (
         <div className="container-fluid" style={{ padding: '15px', height: '100%', width: '100%' }}>
-            <h1 >Payrun</h1>
+            <h1 className="mb-4">Payrun</h1>
             {isLoading && (
                 <div className="alert alert-info" role="alert">
                     Loading employees...
@@ -154,7 +154,7 @@ const PayrunPage: React.FC = () => {
                             <th className="text-nowrap">Total Tax</th>
                             <th className="text-nowrap">Total Net</th>
                             <th className="text-nowrap">Total Super</th>
-                            <th className="text-nowrap">Created Date</th>
+                            <th className="text-nowrap">Created Date (Australia-Melbourne Timezone)</th>
                             <th className="text-nowrap">Actions</th>
                         </tr>
                     </thead>

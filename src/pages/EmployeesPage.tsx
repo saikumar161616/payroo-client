@@ -136,155 +136,8 @@ const EmployeesPage: React.FC = () => {
     if (isLoading) return <p>Loading employees...</p>;
     if (error) return <p className="error">{(error instanceof Error ? error.message : String(error))}</p>;
 
-    // return (
-    //     <div className="employees-container">
-    //         <h1>Employees</h1>
-
-    //         <form className='employee-form' onSubmit={handleFormSubmit}>
-
-    //             <input
-    //                 type="text"
-    //                 name="firstName"
-    //                 placeholder="First Name"
-    //                 value={formData.firstName || ''}
-    //                 required
-    //                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-    //             />
-    //             <input
-    //                 type="text"
-    //                 name="lastName"
-    //                 placeholder="Last Name"
-    //                 value={formData.lastName || ''}
-    //                 required
-    //                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-    //             />
-    //             <input
-    //                 type="email"
-    //                 name="email"
-    //                 placeholder="Email"
-    //                 value={formData.email || ''}
-    //                 required
-    //                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-    //             />
-    //             <select
-    //                 name="type"
-    //                 value={formData.type || ''}
-    //                 onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-    //                 required
-    //             >
-    //                 <option value="" disabled>
-    //                     Select Type
-    //                 </option>
-    //                 <option value="HOURLY">Hourly</option>
-    //             </select>
-
-    //             <input
-    //                 type="number"
-    //                 name="baseHourlyRate"
-    //                 placeholder="Base Hourly Rate"
-    //                 required
-    //                 value={formData.baseHourlyRate || ''}
-    //                 onChange={(e) => setFormData({ ...formData, baseHourlyRate: parseFloat(e.target.value) })}
-    //             />
-    //             <input
-    //                 type="number"
-    //                 name="superRate"
-    //                 placeholder="Super Rate (%)"
-    //                 required
-    //                 value={formData.superRate || ''}
-    //                 onChange={(e) => setFormData({ ...formData, superRate: parseFloat(e.target.value) })}
-    //             />
-    //             <input
-    //                 type="text"
-    //                 name="bankBsb"
-    //                 placeholder="Bank BSB"
-    //                 required
-    //                 value={formData.bank?.bsb || ''}
-    //                 onChange={(e) =>
-    //                     setFormData({
-    //                         ...formData,
-    //                         bank: {
-    //                             bsb: e.target.value,
-    //                             account: formData.bank?.account || ''
-    //                         }
-    //                     })
-    //                 }
-    //             />
-    //             <input
-    //                 type="text"
-    //                 name="bankAccount"
-    //                 placeholder="Bank Account"
-    //                 required
-    //                 value={formData.bank?.account || ''}
-    //                 onChange={(e) =>
-    //                     setFormData({
-    //                         ...formData,
-    //                         bank: {
-    //                             bsb: formData.bank?.bsb || '',
-    //                             account: e.target.value
-    //                         }
-    //                     })
-    //                 }
-    //             />
-
-    //             <select
-    //                 name="status"
-    //                 value={formData.status || ''}
-    //                 onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-    //             >
-    //                 <option value="" disabled>
-    //                     Select Status
-    //                 </option>
-    //                 <option value="ACTIVE">ACTIVE</option>
-    //                 <option value="INACTIVE">INACTIVE</option>
-    //             </select>
-
-    //             <button type="submit">{isEditing ? 'Update Employee' : 'Add Employee'}</button>
-    //             <button type="button" onClick={() => { setIsEditing(false); setFormData({}); }}>Cancel</button>
-    //         </form>
-
-    //         <div className="table-container">
-    //             <table className="employees-table">
-    //                 <thead>
-    //                     <tr>
-    //                         <th>First Name</th>
-    //                         <th>Last Name</th>
-    //                         <th>Email</th>
-    //                         <th>Type</th>
-    //                         <th>Base Hourly Rate</th>
-    //                         <th>Super Rate</th>
-    //                         <th>Bank BSB</th>
-    //                         <th>Bank Account</th>
-    //                         <th>Actions</th>
-    //                     </tr>
-    //                 </thead>
-    //                 <tbody>
-    //                     {employees.length === 0 ? (
-    //                         <tr>
-    //                             <td colSpan={9} style={{ textAlign: 'center' }}>No employees found.</td>
-    //                         </tr>
-    //                     ) : (employees.map((emp) => (
-    //                         <tr key={emp.id}>
-    //                             <td>{emp.firstName}</td>
-    //                             <td>{emp.lastName}</td>
-    //                             <td>{emp.email}</td>
-    //                             <td>{emp.type}</td>
-    //                             <td>{emp.baseHourlyRate}</td>
-    //                             <td>{emp.superRate}</td>
-    //                             <td>{emp.bank.bsb}</td>
-    //                             <td>{emp.bank.account}</td>
-    //                             <td> <button onClick={() => handleEdit(emp)} >Edit</button> </td>
-    //                         </tr>
-    //                     ))
-    //                     )}
-    //                 </tbody>
-    //             </table>
-    //         </div>
-    //     </div>
-    // );
-
     return (
-        <div className="container mt-4">
+        <div className="container-fluid" style={{ padding: '15px', height: '100%', width: '100%' }}>
             <h1 className="mb-4">Employees</h1>
 
             {/* Error and loading display */}
@@ -355,6 +208,8 @@ const EmployeesPage: React.FC = () => {
                         className="form-control"
                         placeholder="Base Hourly Rate"
                         required
+                        min={0}
+                        step="0.01"
                         value={formData.baseHourlyRate || ''}
                         onChange={(e) => setFormData({ ...formData, baseHourlyRate: parseFloat(e.target.value) })}
                     />
@@ -365,6 +220,8 @@ const EmployeesPage: React.FC = () => {
                         name="superRate"
                         className="form-control"
                         placeholder="Super Rate (%)"
+                        min={0}
+                        step="0.01"
                         required
                         value={formData.superRate || ''}
                         onChange={(e) => setFormData({ ...formData, superRate: parseFloat(e.target.value) })}
@@ -375,7 +232,9 @@ const EmployeesPage: React.FC = () => {
                         type="text"
                         name="bankBsb"
                         className="form-control"
-                        placeholder="Bank BSB"
+                        placeholder="Bank BSB (e.g. 083-123)"
+                        pattern='^\d{3}-\d{3}$'
+                        title='BSB must be in the format 083-123'
                         required
                         value={formData.bank?.bsb || ''}
                         onChange={(e) =>
@@ -394,7 +253,9 @@ const EmployeesPage: React.FC = () => {
                         type="text"
                         name="bankAccount"
                         className="form-control"
-                        placeholder="Bank Account"
+                        placeholder="Bank Account (6-12 digits)"
+                        pattern='^\d{6,12}$'
+                        title='Account number must be 6 to 12 digits'
                         required
                         value={formData.bank?.account || ''}
                         onChange={(e) =>
