@@ -27,7 +27,7 @@ button:hover {
 }
 
 input {
-    margin: 20px auto; /* Centers the input */
+    /* margin: 20px auto; Centers the input */
     width: 300px;
     padding: 10px;
     border: 1px solid #ccc;

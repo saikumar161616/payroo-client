@@ -9,4 +9,7 @@ export const apiConstants = {
     add_timesheet: `${BASE_API_URL}/timesheet`,
     get_timesheets: `${BASE_API_URL}/timesheet`,
     update_timesheet: (id: string) => `${BASE_API_URL}/timesheet/${id}`,
+
+    run_payrun: `${BASE_API_URL}/payrun/run`,
+    get_payruns: `${BASE_API_URL}/payrun`
 };
