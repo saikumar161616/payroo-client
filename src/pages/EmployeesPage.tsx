@@ -117,6 +117,7 @@ const EmployeesPage: React.FC = () => {
             {/* Employee Form */}
             <form className="row g-3 mb-4 d-flex align-items-center" onSubmit={handleFormSubmit}>
                 <div className="col-md-3 align-items-center">
+                    <label className="form-label">First Name <span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="text"
                         name="firstName"
@@ -129,6 +130,7 @@ const EmployeesPage: React.FC = () => {
                     {formError?.firstName && <div className="text-danger small" id="firstNameError">{formError.firstName}</div>}
                 </div>
                 <div className="col-md-3">
+                    <label className="form-label">Last Name <span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="text"
                         name="lastName"
@@ -141,6 +143,7 @@ const EmployeesPage: React.FC = () => {
                     {formError?.lastName && <div className="text-danger small" id="lastNameError">{formError.lastName}</div>}
                 </div>
                 <div className="col-md-3">
+                    <label className="form-label">Email <span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="email"
                         name="email"
@@ -153,6 +156,7 @@ const EmployeesPage: React.FC = () => {
                     {formError?.email && <div className="text-danger small" id="emailError">{formError.email}</div>}
                 </div>
                 <div className="col-md-3">
+                    <label className="form-label">Type <span style={{ color: 'red' }}>*</span></label>
                     <select
                         name="type"
                         className="form-select"
@@ -168,6 +172,7 @@ const EmployeesPage: React.FC = () => {
                     {formError?.type && <div className="text-danger small" id="typeError">{formError.type}</div>}
                 </div>
                 <div className="col-md-2">
+                    <label className="form-label">Base Hourly Rate <span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="number"
                         name="baseHourlyRate"
@@ -182,6 +187,7 @@ const EmployeesPage: React.FC = () => {
                     {formError?.baseHourlyRate && <div className="text-danger small" id="baseHourlyRateError">{formError.baseHourlyRate}</div>}
                 </div>
                 <div className="col-md-2">
+                    <label className="form-label">Super Rate <span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="number"
                         name="superRate"
@@ -196,6 +202,7 @@ const EmployeesPage: React.FC = () => {
                     {formError?.superRate && <div className="text-danger small" id="superRateError">{formError.superRate}</div>}
                 </div>
                 <div className="col-md-2">
+                    <label className="form-label">Bank BSB <span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="text"
                         name="bankBsb"
@@ -218,6 +225,7 @@ const EmployeesPage: React.FC = () => {
                     {formError?.bsb && <div className="text-danger small" id="bsbError">{formError.bsb}</div>}
                 </div>
                 <div className="col-md-2">
+                    <label className="form-label">Bank Account Number <span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="text"
                         name="bankAccount"
@@ -240,6 +248,7 @@ const EmployeesPage: React.FC = () => {
                     {formError?.account && <div className="text-danger small" id="accountError">{formError.account}</div>}
                 </div>
                 <div className="col-md-2">
+                    <label className="form-label">Status</label>
                     <select
                         name="status"
                         className="form-select"

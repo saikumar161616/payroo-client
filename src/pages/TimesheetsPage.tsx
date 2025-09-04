@@ -263,7 +263,7 @@ const TimesheetsPage: React.FC = () => {
 
             <form className="row g-3 mb-3 align-items-center">
                 <div className="col-md-3">
-                    <label htmlFor="employee-select" className="form-label">Employee</label>
+                    <label className="form-label">Employee</label>
                     <select
                         id="employee-select"
                         className="form-select"
@@ -283,7 +283,7 @@ const TimesheetsPage: React.FC = () => {
                     </select>
                 </div>
                 <div className="col-md-3">
-                    <label htmlFor="week-start-picker" className="form-label">Period Start</label>
+                    <label className="form-label">Period Start</label>
                     <input
                         id="week-start-picker"
                         className="form-control"
@@ -294,7 +294,7 @@ const TimesheetsPage: React.FC = () => {
                     />
                 </div>
                 <div className="col-md-3">
-                    <label htmlFor="week-end-picker" className="form-label">Period End</label>
+                    <label className="form-label">Period End</label>
                     <input
                         id="week-end-picker"
                         className="form-control"
@@ -388,7 +388,7 @@ const TimesheetsPage: React.FC = () => {
                             </tbody>
                         </table>
                         <div className="mb-3">
-                            <label htmlFor="allowances-input" className="form-label">Allowances ($)</label>
+                            <label className="form-label">Allowances ($)</label>
                             <input
                                 id="allowances-input"
                                 className="form-control"

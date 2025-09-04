@@ -75,7 +75,7 @@ const PayrunPage: React.FC = () => {
             )}
             <form className="d-flex align-items-center gap-2 mb-2 flex-wrap" onSubmit={handleSubmit}>
                 <div className="flex-shrink-0">
-                    <label htmlFor="periodStart" className="form-label mb-0 me-2">Period Start</label>
+                    <label className="form-label mb-0 me-2">Period Start</label>
                     <input
                         type="date"
                         id="periodStart"
@@ -87,7 +87,7 @@ const PayrunPage: React.FC = () => {
                     />
                 </div>
                 <div className="flex-shrink-0">
-                    <label htmlFor="periodEnd" className="form-label mb-0 me-2">Period End</label>
+                    <label className="form-label mb-0 me-2">Period End</label>
                     <input
                         type="date"
                         id="periodEnd"
@@ -99,7 +99,7 @@ const PayrunPage: React.FC = () => {
                     />
                 </div>
                 <div className="flex-shrink-0" style={{ minWidth: 220 }}>
-                    <label htmlFor="employeeSelect" className="form-label mb-0 me-2">Employees</label>
+                    <label className="form-label mb-0 me-2">Employees</label>
                     <Select
                         inputId="employeeSelect"
                         isMulti
