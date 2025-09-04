@@ -10,7 +10,6 @@ import Navbar from './components/Navbar';
 const AppContent: React.FC = () => {
 
   const location = useLocation();
-  console.log("Current location:", location.pathname);
   const showNavbar = location.pathname !== '/';
 
   return (

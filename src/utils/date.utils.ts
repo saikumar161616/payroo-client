@@ -1,5 +1,4 @@
 export const formatDateAndTime = (date: Date | string): string => {
-    console.log("Formatting date and time:", date);
     return new Date(date).toLocaleString('en-AU', {
         timeZone: 'Australia/Melbourne',
         year: 'numeric',
@@ -12,7 +11,6 @@ export const formatDateAndTime = (date: Date | string): string => {
 }
 
 export const formatDate = (date: Date | string): string => {
-    console.log("Formatting date:", date);
     return new Date(date).toLocaleString('en-AU', {
         timeZone: 'Australia/Melbourne',
         year: 'numeric',

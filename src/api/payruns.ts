@@ -4,7 +4,7 @@ import { apiConstants } from '../api.constants';
 export const runPayrun = async (payload: { periodStart: string; periodEnd: string; employeeIds: string[] }): Promise<any> => {
     try {
         const response = await api.post(apiConstants.run_payrun, payload);
-        console.log("API response for running payrun:", response);
+        // console.log("API response for running payrun:", response);
         if (response && response.data.status) {
             return response.data.data;
         } else if (response && response.data && response.data.error) {
@@ -23,7 +23,7 @@ export const runPayrun = async (payload: { periodStart: string; periodEnd: strin
 export const getPayruns = async (): Promise<any[]> => {
     try {
         const response = await api.get(apiConstants.get_payruns);
-        console.log("API response for running payrun:", response);
+        //console.log("API response for running payrun:", response);
         if (response && response.data.status) {
             return response.data.data;
         } else if (response && response.data && response.data.error) {

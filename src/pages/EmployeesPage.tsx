@@ -6,74 +6,33 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const EmployeesPage: React.FC = () => {
 
-    // const [employees, setEmployees] = useState<Employee[]>([]);
-    // const [formData, setFormData] = useState<Partial<Employee>>({});
-    // const [isEditing, setIsEditing] = useState<boolean>(false);
-    // const [loading, setLoading] = useState<boolean>(false);
-    // const [error, setError] = useState<string | null>(null);
-
-    // const queryClient = useQueryClient();
-
-    // // Fetch employees on component mount
-    // useEffect(() => {
-    //     fetchEmployees();
-    // }, []);
-
-    // const fetchEmployees = async () => {
-    //     setLoading(true);
-    //     setError(null);
-    //     try {
-    //         const data = await getEmployees();
-    //         setEmployees(data);
-    //         console.log("Fetched employees:", data);
-    //     } catch (err) {
-    //         console.log("Error fetching employees:", err);
-    //         setError('Failed to fetch employees. Please try again.');
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
-
-    // const handleEdit = (emp: Employee) => {
-    //     setIsEditing(true);
-    //     setFormData(emp);
-    // }
-
-    // const handleFormSubmit = async (e: React.FormEvent) => {
-    //     e.preventDefault();
-    //     if (isEditing) {
-    //         // Update existing employee logic
-    //         try {
-    //             const { id, ...formDataWithoutId } = formData;
-    //             const res = await updateEmployee(formData.id! || '', formDataWithoutId);
-    //             if (res) {
-    //                 setEmployees(employees.map(emp => emp.id === res.id ? res : emp));
-    //                 setIsEditing(false);
-    //                 setFormData({});
-    //             }
-    //         }
-    //         catch (err) {
-    //             console.log("Error updating employee:", err);
-    //             setError('Failed to update employee. Please try again.');
-    //         }
-    //     }
-    //     else {
-    //         // Add new employee logic
-    //         try {
-    //             const res = await addEmployee(formData);
-    //             if (res) {
-    //                 setEmployees([...employees, res]);
-    //                 setFormData({});
-    //             }
-    //         } catch (err) {
-    //             console.log("Error adding employee:", err);
-    //             setError('Failed to add employee. Please try again.');
-    //         }
-    //     }
-    // };
-
     const [formData, setFormData] = useState<Partial<Employee>>({});
     const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [formError, setFormError] = useState<any>({});
+
+    const validateForm = () => {
+        const errors: any = {}
+
+        const emailPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if (!formData.firstName || formData.firstName.trim() === '') errors.firstName = 'First name is required';
+        if (!formData.lastName || formData.lastName.trim() === '') errors.lastName = 'Last name is required';
+
+        //min 2 max 50 characters for first and last name
+        if (formData.firstName && (formData.firstName.length < 2 || formData.firstName.length > 50)) errors.firstName = 'First name must be between 2 and 50 characters';
+        if (formData.lastName && (formData.lastName.length < 2 || formData.lastName.length > 50)) errors.lastName = 'Last name must be between 2 and 50 characters';
+
+        if (!formData.email || formData.email.trim() === '') errors.email = 'Email is required';
+        else if (!emailPattern.test(formData.email)) errors.email = 'Email is invalid';
+        if (!formData.type || formData.type.trim() === '') errors.type = 'Employee type is required';
+        if (!formData.baseHourlyRate) errors.baseHourlyRate = 'Base hourly is required';
+        if (!formData.superRate) errors.superRate = 'Super rate is required';
+        if (!formData.bank?.bsb || formData.bank?.bsb.trim() === '') errors.bsb = 'Bank BSB is required';
+        else if (!/^\d{3}-\d{3}$/.test(formData.bank.bsb)) errors.bsb = 'BSB must be in the format 083-123';
+        if (!formData.bank?.account || formData.bank?.account.trim() === '') errors.account = 'Bank account is required';
+        else if (!/^\d{6,12}$/.test(formData.bank.account)) errors.account = 'Account number must be 6 to 12 digits';
+        return errors;
+    }
 
     const queryClient = useQueryClient();
 
@@ -118,6 +77,9 @@ const EmployeesPage: React.FC = () => {
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const errors = validateForm();
+        setFormError(errors);
+        if (Object.keys(errors).length > 0) return; // If there are validation errors, do not proceed
         if (isEditing) {
             // Update employee
             const { id, ...formDataWithoutId } = formData;
@@ -161,9 +123,10 @@ const EmployeesPage: React.FC = () => {
                         className="form-control"
                         placeholder="First Name"
                         value={formData.firstName || ''}
-                        required
+                        // required
                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                     />
+                    {formError?.firstName && <div className="text-danger small" id="firstNameError">{formError.firstName}</div>}
                 </div>
                 <div className="col-md-3">
                     <input
@@ -172,9 +135,10 @@ const EmployeesPage: React.FC = () => {
                         className="form-control"
                         placeholder="Last Name"
                         value={formData.lastName || ''}
-                        required
+                        // required
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                     />
+                    {formError?.lastName && <div className="text-danger small" id="lastNameError">{formError.lastName}</div>}
                 </div>
                 <div className="col-md-3">
                     <input
@@ -183,9 +147,10 @@ const EmployeesPage: React.FC = () => {
                         className="form-control"
                         placeholder="Email"
                         value={formData.email || ''}
-                        required
+                        // required
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
+                    {formError?.email && <div className="text-danger small" id="emailError">{formError.email}</div>}
                 </div>
                 <div className="col-md-3">
                     <select
@@ -193,13 +158,14 @@ const EmployeesPage: React.FC = () => {
                         className="form-select"
                         value={formData.type || ''}
                         onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                        required
+                    // required
                     >
                         <option value="" disabled>
                             Select Type
                         </option>
                         <option value="HOURLY">Hourly</option>
                     </select>
+                    {formError?.type && <div className="text-danger small" id="typeError">{formError.type}</div>}
                 </div>
                 <div className="col-md-2">
                     <input
@@ -207,12 +173,13 @@ const EmployeesPage: React.FC = () => {
                         name="baseHourlyRate"
                         className="form-control"
                         placeholder="Base Hourly Rate"
-                        required
+                        // required
                         min={0}
                         step="0.01"
                         value={formData.baseHourlyRate || ''}
                         onChange={(e) => setFormData({ ...formData, baseHourlyRate: parseFloat(e.target.value) })}
                     />
+                    {formError?.baseHourlyRate && <div className="text-danger small" id="baseHourlyRateError">{formError.baseHourlyRate}</div>}
                 </div>
                 <div className="col-md-2">
                     <input
@@ -222,10 +189,11 @@ const EmployeesPage: React.FC = () => {
                         placeholder="Super Rate (%)"
                         min={0}
                         step="0.01"
-                        required
+                        // required
                         value={formData.superRate || ''}
                         onChange={(e) => setFormData({ ...formData, superRate: parseFloat(e.target.value) })}
                     />
+                    {formError?.superRate && <div className="text-danger small" id="superRateError">{formError.superRate}</div>}
                 </div>
                 <div className="col-md-2">
                     <input
@@ -233,9 +201,9 @@ const EmployeesPage: React.FC = () => {
                         name="bankBsb"
                         className="form-control"
                         placeholder="Bank BSB (e.g. 083-123)"
-                        pattern='^\d{3}-\d{3}$'
-                        title='BSB must be in the format 083-123'
-                        required
+                        // pattern='^\d{3}-\d{3}$'
+                        // title='BSB must be in the format 083-123'
+                        // required
                         value={formData.bank?.bsb || ''}
                         onChange={(e) =>
                             setFormData({
@@ -247,6 +215,7 @@ const EmployeesPage: React.FC = () => {
                             })
                         }
                     />
+                    {formError?.bsb && <div className="text-danger small" id="bsbError">{formError.bsb}</div>}
                 </div>
                 <div className="col-md-2">
                     <input
@@ -254,9 +223,9 @@ const EmployeesPage: React.FC = () => {
                         name="bankAccount"
                         className="form-control"
                         placeholder="Bank Account (6-12 digits)"
-                        pattern='^\d{6,12}$'
-                        title='Account number must be 6 to 12 digits'
-                        required
+                        // pattern='^\d{6,12}$'
+                        // title='Account number must be 6 to 12 digits'
+                        // required
                         value={formData.bank?.account || ''}
                         onChange={(e) =>
                             setFormData({
@@ -268,6 +237,7 @@ const EmployeesPage: React.FC = () => {
                             })
                         }
                     />
+                    {formError?.account && <div className="text-danger small" id="accountError">{formError.account}</div>}
                 </div>
                 <div className="col-md-2">
                     <select

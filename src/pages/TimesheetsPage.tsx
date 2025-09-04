@@ -231,12 +231,8 @@ const TimesheetsPage: React.FC = () => {
                     end: e.endTime,
                     unpaidBreakMins: e.breakMins
                 })),
-                allowances: allowances,// timesheetEntries.reduce((sum, e) => sum + (e.allowance || 0), 0)
+                allowances: allowances,
             };
-
-            console.log("Submitting timesheet payload:", payload);
-            console.log("Current timesheetId:", timesheetId);
-
             timesheetId ? updateTimesheetMutation.mutate(payload) : addTimesheetMutation.mutate(payload);
         }
     };

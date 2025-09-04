@@ -4,7 +4,7 @@ import { apiConstants } from '../api.constants';
 export const addTimeSheet = async (payload: any): Promise<any> => {
     try {
         const response = await api.post(apiConstants.add_timesheet, payload);
-        console.log("API response for adding timesheet:", response);
+        //console.log("API response for adding timesheet:", response);
         if (response && response.data.status) {
             return response.data.data;
         } else if (response && response.data && response.data.error) {
@@ -30,7 +30,7 @@ export const getTimeSheets = async (employeeId:string, periodStart:any, periodEn
                 periodEnd
             }
         }); 
-        console.log("API response for getting timesheets:", response.data);
+        //console.log("API response for getting timesheets:", response.data);
         if (response && response.data.status) {
             return response.data.data;
         } else if (response && response.data && response.data.error) {
@@ -50,7 +50,7 @@ export const getTimeSheets = async (employeeId:string, periodStart:any, periodEn
 export const updateTimeSheet = async (timesheetId:string, payload: any): Promise<any> => {
     try {
         const response = await api.patch(apiConstants.update_timesheet(timesheetId), payload);
-        console.log("API response for updating timesheet:", response);
+        //console.log("API response for updating timesheet:", response);
         if (response && response.data.status) {
             return response.data.data;
         } else if (response && response.data && response.data.error) {

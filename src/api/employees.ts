@@ -5,7 +5,7 @@ import { Employee } from '../types/types';
 export const getToken = async (name: string): Promise<any> => {
     try {
         const response = await api.post(apiConstants.get_token, { name: name });
-        console.log("API response for token:", response);
+        //console.log("API response for token:", response);
         if (response && response.data.status) {
             return response.data.data;
         }
@@ -18,7 +18,7 @@ export const getToken = async (name: string): Promise<any> => {
 export const getEmployees = async (): Promise<Employee[]> => {
     try {
         const response = await api.get(apiConstants.get_employees);
-        console.log("API response for employees:", response);
+        //console.log("API response for employees:", response);
         if (response && response.data.status) {
             return response.data.data || [];
         }
@@ -32,7 +32,7 @@ export const getEmployees = async (): Promise<Employee[]> => {
 export const addEmployee = async (emp: Partial<Employee>): Promise<Employee | undefined> => {
     try {
         const response = await api.post(apiConstants.add_employee, emp);
-        console.log("API response for adding employee:", response);
+        //console.log("API response for adding employee:", response);
         if (response && response.data.status) {
             return response.data.data;
         }
@@ -46,7 +46,7 @@ export const addEmployee = async (emp: Partial<Employee>): Promise<Employee | un
 export const updateEmployee = async (id: string, emp: Partial<Employee>): Promise<Employee | undefined> => {
     try {
         const response = await api.patch(apiConstants.update_employee(String(id)), emp);
-        console.log("API response for updating employee:", response);
+        //console.log("API response for updating employee:", response);
         if (response && response.data.status) {
             return response.data.data;
         }   

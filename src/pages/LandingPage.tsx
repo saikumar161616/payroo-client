@@ -12,7 +12,6 @@ const LandingPage: React.FC = () => {
     const navigate = useNavigate();
 
     const generateToken = async () => {
-        console.log("Generating token for name:", name);
         setLoading(true);
         setError(null);
         try {
@@ -33,19 +32,25 @@ const LandingPage: React.FC = () => {
     };
 
     return (
-        <div className="container">
-            <header>
-                <h1>Welcome to Payroo Mini Payrun</h1>
+        <div className="container-fluid" style={{ padding: '15px', height: '100%', width: '100%' }}>
+            <header className='mb-4'>
+                <h1 className='text-center'>Welcome to Payroo Mini Payrun</h1>
+                <p className='text-center'>Please enter anything random to generate an access token, This is to demonstrating authentication middleware</p>
             </header>
-            <main>
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Full Name"
-                />
-                <button onClick={() => generateToken()} disabled={loading || !name} > {loading ? 'Generating' : 'Generate token to access'}</button>
-                {error && <p className="error">{error}</p>}
+            <main className='d-flex flex-column justify-content-center align-items-center'>
+                <div className='mb-3' style={{ maxWidth: 400, }}>
+                    <input
+                        id='fullname'
+                        type="text"
+                        className='form-control'
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Eg: Fullname"
+                    />
+                    <button  className='btn btn-primary' onClick={() => generateToken()} disabled={loading || !name} > {loading ? 'Generating' : 'Generate token to access'}</button>
+                    {error && <p className="error">{error}</p>}
+                </div>
+
             </main>
         </div>
     );
