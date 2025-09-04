@@ -14,9 +14,8 @@ const PayslipList: React.FC<{ payslips: Payslip[] }> = ({ payslips }) => {
         doc.setFontSize(12);
         doc.text(`Employee ID: ${payslip.employeeId.id}`, 10, 30);
         doc.text(`Name: ${payslip.employeeId.firstName} ${payslip.employeeId.lastName}`, 10, 40);
-        if (payslip.employeeId.email) {
-            doc.text(`Email: ${payslip.employeeId.email}`, 10, 50);
-        }
+        doc.text(`Email: ${payslip.employeeId.email}`, 10, 50);
+        
         doc.text("Earnings:", 10, 65);
         doc.text(`Gross: $${payslip.gross}`, 10, 75);
         doc.text(`Tax: $${payslip.tax}`, 10, 85);
